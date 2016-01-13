@@ -12,8 +12,15 @@
     tools:context="com.vito_notes.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <Button android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:onClick="addNote"
+        android:text="Add note" />
+
+    <EditText android:id="@+id/edit_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_message" />
+
 </RelativeLayout>

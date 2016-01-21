@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     Button buttonStartNoteActivity;
+    DBHelper db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();*/
+
+        /**
+         *Commit from Home PC
+         */
+
 
         Intent intent = new Intent(this, NoteActivity.class);
         startActivity(intent);

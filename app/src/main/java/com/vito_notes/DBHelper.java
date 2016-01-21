@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
         db.execSQL(
-                "create table notes " +
+                "create table if not exists notes " +
                         "(id integer primary key,note text, date text)"
         );
     }
@@ -59,6 +59,17 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery( "select * from notes where id="+id+"", null );
         return res;
     }
+
+    /*
+    * Gets all the notes on the database
+    * */
+    public Cursor getAllData()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from notes", null );
+        return res;
+    }
+
 
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();

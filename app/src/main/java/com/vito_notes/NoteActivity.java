@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +19,14 @@ import android.widget.Toast;
 
 public class NoteActivity extends AppCompatActivity {
 
+    DBHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+
+        db = new DBHelper(this);
     }
 
     public void saveNote(View view)
@@ -35,6 +40,10 @@ public class NoteActivity extends AppCompatActivity {
         /*
         * Save note database code goes here
         * */
+        EditText mEdit   = (EditText)findViewById(R.id.editText1);
+        String theNote = mEdit.getText().toString();
+
+        db.insertNote(theNote);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

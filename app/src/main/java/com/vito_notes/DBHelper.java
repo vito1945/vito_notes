@@ -9,8 +9,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * Created by vitoriab on 1/15/2016.
@@ -24,11 +26,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context)
     {
         super(context, DATABASE_NAME , null, 1);
+        Log.d("DBHelper", "Constructor DB");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
+        Log.d("DBHelper","OnCreate");
         db.execSQL(
                 "create table if not exists notes " +
                         "(id integer primary key,note text, date text)"
@@ -41,6 +45,24 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS notes");
         onCreate(db);
     }
+
+    public boolean checkIfDBexist()
+    {
+        SQLiteDatabase checkDB = null;
+        boolean exist = true;
+
+        try {
+            checkDB = SQLiteDatabase.openDatabase(DATABASE_NAME, null,
+                    SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+            Log.d("myTag", "Entro a abrir DB");
+        } catch (SQLiteException e) {
+             exist = false;
+            // database doesn't exist yet.
+        }
+        return exist;
+    }
+
 
     public boolean insertNote  (String note)
     {
